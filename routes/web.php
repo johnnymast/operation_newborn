@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/johnny', 'JohnnyController@index');
+Route::get('/johnny', 'JohnnyController@index')->name('johnny');
 
 Auth::routes();
 
