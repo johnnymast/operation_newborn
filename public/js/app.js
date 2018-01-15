@@ -43111,7 +43111,7 @@ exports = module.exports = __webpack_require__(45)(false);
 
 
 // module
-exports.push([module.i, "\n.editor-wrapper[data-v-4a6f37e4] {\n    position: absolute;\n    width: 100%;\n    height: 100%;\n}\n.editor-wrapper .left[data-v-4a6f37e4] {\n    position: relative;\n    height: 100%;\n    width: 70%;\n    float: left;\n}\n.editor-wrapper .right[data-v-4a6f37e4] {\n    position: relative;\n    height: 100%;\n    width: 25%;\n    float: right;\n}\n", ""]);
+exports.push([module.i, "\n.editor-wrapper[data-v-4a6f37e4] {\n    position: absolute;\n    width: 100%;\n    height: 100%;\n}\n.editor-wrapper .left[data-v-4a6f37e4] {\n    position: relative;\n    height: 100%;\n    width: 84%;\n    float: left;\n}\n.editor-wrapper .right[data-v-4a6f37e4] {\n    position: relative;\n    height: 100%;\n    width: 15%;\n    float: right;\n}\n", ""]);
 
 // exports
 

@@ -28,14 +28,14 @@
     .editor-wrapper .left {
         position: relative;
         height: 100%;
-        width: 70%;
+        width: 84%;
         float: left;
     }
 
     .editor-wrapper .right {
         position: relative;
         height: 100%;
-        width: 25%;
+        width: 15%;
         float: right;
     }
 </style>
