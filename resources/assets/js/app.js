@@ -17,7 +17,29 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component('editor', require('./components/Editor'));
+Vue.component('editor-canvas', require('./components/EditorCanvas'));
+Vue.component('editor-properties', require('./components/EditorProperties'));
+Vue.component('editor-components', require('./components/EditorComponents'));
+
+Vue.prototype.bus = new Vue({})
 
 const app = new Vue({
-    el: '#app'
-});
+    el: '#app',
+    mounted: function() {
+        console.log('mounted')
+    },
+    methods: {
+      save: function() {
+        console.log('save')
+      },
+      resize_desktop: function() {
+        this.bus.$emit('resize_desktop')
+      },
+      resize_mobile: function() {
+        this.bus.$emit('resize_mobile')
+        console.log('resize_mobile')
+      }
+
+    }
+  }
+);
