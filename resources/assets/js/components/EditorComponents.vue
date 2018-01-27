@@ -41,39 +41,50 @@
 </template>
 
 <script>
-  export default {
-    name: 'editor-properties'
+export default {
+  name: "editor-components",
+  data: function() {
+    return {
+      components: []
+    };
+  },
+  mounted: function() {
+    this.bus.$emit("start_registering");
+
+    this.bus.$on("register_component", $event => {
+      console.log("component registered");
+    //   console.log($event);
+    });
   }
+};
 </script>
 
 <style scoped>
-    .editor-components {
-        position: relative;
-        margin-top: 10px;
-        right: 0px;
-        width: 100%;
-        color: #000000;
-    }
+.editor-components {
+  position: relative;
+  margin-top: 10px;
+  right: 0px;
+  width: 100%;
+  color: #000000;
+}
 
+.editor-components .panel-default > .panel-heading {
+  background-color: #f5f5f5;
+}
 
-    .editor-components .panel-default > .panel-heading {
-        background-color: #f5f5f5;
-    }
+.editor-components ul.component-list {
+  text-align: center;
+  list-style: none;
+  padding: 0px;
+}
 
-    .editor-components ul.component-list {
-        text-align: center;
-        list-style: none;
-        padding: 0px;
-    }
-
-    .editor-components ul.component-list li {
-        text-align: center;
-        display: inline-block;
-        border: 1px solid #d3e0e9;
-        margin-right: 5px;
-        margin-bottom: 5px;
-        padding: 10px;
-        width: 40%;
-
-    }
+.editor-components ul.component-list li {
+  text-align: center;
+  display: inline-block;
+  border: 1px solid #d3e0e9;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  padding: 10px;
+  width: 40%;
+}
 </style>
