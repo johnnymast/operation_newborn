@@ -1,14 +1,20 @@
 <script>
 var Button = {
+  data: function() {
+    return {
+      label: "Button",
+    };
+  },
   created: function() {
-        let self = this
-    this.bus.$on("start_registering", $event => {
-      console.log("Aangemaakt");
-      // console.log(this);
-      self.bus.$emit("register_component", this);
-    });
+    
+  },
+  mounted: function() {
+    this.register()
   },
   methods: {
+    register: function() {
+      this.bus.$emit("register_component", this);
+    }
   }
 };
 module.exports = Button;

@@ -1,83 +1,106 @@
 <template>
-    <div v-html="canvas" id="editor-canvas" class="editor-canvas" :class="editor_class">
-        HI@
+    <div id="editor-canvas" class="editor-canvas" :class="editor_class">
     </div>
 </template>
 
 <script>
+const PIXI = require("pixi.js");
 
-  const PIXI = require('pixi.js')
-  export default {
-    name: 'editor-canvas',
-    data: function () {
-      return {
-        editor_class: '',
-        canvas: null,
-      }
-    },
-    mounted: function () {
+export default {
+  name: "editor-canvas",
+  data: function() {
+    return {
+      editor_class: "",
+      canvas: null,
+      ration: 1,
+      renderer: null,
+      app: null
+    };
+  },
+  mounted: function() {
+    console.log("hi dit werkt");
 
+    this.bus.$on("resize_mobile", $event => {
+      this.editor_class = "is-mobile";
+    });
 
-      console.log('hi dit werkt')
+    this.bus.$on("resize_desktop", $event => {
+      this.editor_class = "is-desktop";
+    });
 
-      this.bus.$on('resize_mobile', ($event) => {
-        this.editor_class = 'is-mobile'
-      })
+    this.editor_class = "is-desktop";
+    this.init_canvas();
+  },
 
-      this.bus.$on('resize_desktop', ($event) => {
-        this.editor_class = 'is-desktop'
-      })
+  methods: {
+    init_canvas: function() {
+      this.canvas = document.getElementById("editor-canvas");
 
-      var app = new PIXI.Application(800, 600, {backgroundColor : 0xffffff});
-      document.getElementById('editor-canvas').appendChild(app.view);
-//      this.canvas = app.view;
+      this.canvas = document.getElementById("editor-canvas");
+      this.canvas.style.display = "block";
+
+      this.ratio = this.canvas.offsetWidth / this.canvas.offsetHeight;
+      this.app = new PIXI.Application(
+        this.canvas.innerWidth,
+        this.canvas.innerHeight,
+        { backgroundColor: 0xffffff }
+      );
+      this.canvas.appendChild(this.app.view);
 
       // create a new Sprite from an image path
-      var bunny = PIXI.Sprite.fromImage('https://raw.githubusercontent.com/pixijs/examples/gh-pages/required/assets/bunny.png')
+      var bunny = PIXI.Sprite.fromImage(
+        "https://raw.githubusercontent.com/pixijs/examples/gh-pages/required/assets/bunny.png"
+      );
 
       // center the sprite's anchor point
       bunny.anchor.set(0.5);
 
       // move the sprite to the center of the screen
-      bunny.x = app.screen.width / 2;
-      bunny.y = app.screen.height / 2;
+      bunny.x = this.app.screen.width / 2;
+      bunny.y = this.app.screen.height / 2;
 
-      app.stage.addChild(bunny);
+      this.app.stage.addChild(bunny);
 
       // Listen for animate update
-      app.ticker.add(function(delta) {
-          // just for fun, let's rotate mr rabbit a little
-          // delta is 1 if running at 100% performance
-          // creates frame-independent tranformation
-          bunny.rotation += 0.1 * delta;
+      this.app.ticker.add(function(delta) {
+        // just for fun, let's rotate mr rabbit a little
+        // delta is 1 if running at 100% performance
+        // creates frame-independent tranformation
+        bunny.rotation += 0.1 * delta;
       });
 
-//      document.body.appendChild(app.view);
-
-      this.editor_class = 'is-desktop'
+      const ro = new ResizeObserver((entries) => {
+        for (const entry of entries) {
+           console.log(this.app.renderer.resize(entry.contentRect.width, entry.contentRect.height))
+        }
+      });
+      // Observe one or multiple elements
+      ro.observe(this.canvas);
     }
   }
+};
 </script>
 
 <style scoped>
-    .editor-canvas {
-        position: absolute;
-        border: 1px solid #d3e0e9;
-        background: white;
-        padding: 10px;
-        -webkit-transition: width 300ms ease-in-out, height 300ms ease-in-out;
-        -moz-transition: width 300ms ease-in-out, height 300ms ease-in-out;
-        -o-transition: width 300ms ease-in-out, height 300ms ease-in-out;
-        transition: width 300ms ease-in-out, height 300ms ease-in-out;
-        width: 100%;
-        height: 100%;
-    }
+.editor-canvas {
+  position: absolute;
+  border: 1px solid #d3e0e9;
+  background: white;
+  padding: 10px;
+  -webkit-transition: width 300ms ease-in-out, height 300ms ease-in-out;
+  -moz-transition: width 300ms ease-in-out, height 300ms ease-in-out;
+  -o-transition: width 300ms ease-in-out, height 300ms ease-in-out;
+  transition: width 300ms ease-in-out, height 300ms ease-in-out;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
 
-    .editor-canvas.is-desktop {
-        width: 100%;
-    }
+.editor-canvas.is-desktop {
+  width: 100%;
+}
 
-    .editor-canvas.is-mobile {
-        width: 750px;
-    }
+.editor-canvas.is-mobile {
+  width: 750px;
+}
 </style>

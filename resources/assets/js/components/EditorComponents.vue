@@ -1,5 +1,5 @@
 <template>
-    <div class="editor-components">
+    <div class="editor-components" v-show="components">
 
 
         <div class="panel panel-default">
@@ -9,29 +9,8 @@
             <div class="panel-body">
 
                 <ul class="component-list">
-                    <li>
-                        Button
-                    </li>
-                    <li>
-                        Sprite
-                    </li>
-                    <li>
-                        Button
-                    </li>
-                    <li>
-                        Sprite
-                    </li>
-                    <li>
-                        Button
-                    </li>
-                    <li>
-                        Sprite
-                    </li>
-                    <li>
-                        Button
-                    </li>
-                    <li>
-                        Sprite
+                    <li v-for="component in components">
+                        {{component.label}}
                     </li>
                 </ul>
 
@@ -48,14 +27,13 @@ export default {
       components: []
     };
   },
-  mounted: function() {
-    this.bus.$emit("start_registering");
-
+  mounted: function() { 
     this.bus.$on("register_component", $event => {
       console.log("component registered");
-    //   console.log($event);
+      this.components.push($event);
     });
-  }
+  },
+  
 };
 </script>
 
