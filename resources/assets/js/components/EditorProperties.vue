@@ -17,7 +17,7 @@
                     <div class="form-group">
                         <label for="inputEmail3">On state</label>
                         <select class="form-control">
-                            <option selected="selected">start_on.png</option>
+                            <option v-for="file in images" :value="file.file">{{file.caption}}</option>
                             <option>start_off.png</option>
                         </select>
                     </div>
@@ -47,7 +47,18 @@
 
 <script>
   export default {
-    name: 'editor-properties'
+    name: 'editor-properties',
+      data() {
+          return {
+              images: []
+          };
+      },
+      mounted() {
+          axios.get("/johnny/images")
+          .then(response => {
+              this.images = response.data
+          })
+      }
   }
 </script>
 

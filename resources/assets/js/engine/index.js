@@ -1,3 +1,4 @@
 import Button from './Button.vue'
+import Frame from './Frame.vue'
 
-export { Button }
+export default { Button, Frame }

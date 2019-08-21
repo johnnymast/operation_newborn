@@ -29,7 +29,7 @@ export default {
   },
   mounted: function() { 
     this.bus.$on("register_component", $event => {
-      console.log("component registered");
+        console.log($event.label)
       this.components.push($event);
     });
   },

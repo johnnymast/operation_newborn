@@ -12,7 +12,13 @@
 */
 
 Route::get('/johnny', 'JohnnyController@index')->name('johnny');
+Route::group(['as' => 'johnny.', 'prefix' => 'johnny'], function () {
+
+    Route::get('/images', 'JohnnyController@images')->name('johnny');
+
+});
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+

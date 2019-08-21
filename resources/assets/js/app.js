@@ -21,15 +21,14 @@ Vue.component('editor-canvas', require('./components/EditorCanvas'));
 Vue.component('editor-properties', require('./components/EditorProperties'));
 Vue.component('editor-components', require('./components/EditorComponents'));
 
-import { Button }  from "./engine"
+// import { Button, Frame }  from "./engine"
+const engine_components = require('./engine');
 
 Vue.prototype.bus = new Vue({})
 
 const app = new Vue({
     el: '#app',
-    mixins: [
-      Button
-    ],
+    mixins: Object.values(engine_components.default),
     mounted: function() {
         console.log('mounted')
     },
